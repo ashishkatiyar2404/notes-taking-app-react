@@ -1,0 +1,43 @@
+.landing__container {
+  display: flex;
+}
+
+.landing__data_container {
+  padding: 1rem;
+}
+
+.landing__heading_container,
+.landing__btn_container,
+.landing__small_heading,
+.landing__details {
+  margin: 2rem 0 4rem 6rem;
+}
+
+.landing__heading_container h1 {
+  font-size: 4rem;
+}
+
+.landing__small_heading {
+  font-size: 1.6rem;
+}
+
+.landing__details {
+  width: 60%;
+  font-size: 1.2rem;
+}
+
+.landing__btn_container button {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1.6rem 0.8rem 1.6rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  background-color: blueviolet;
+  color: white;
+}
+
+.landing__btn_container p {
+  font-size: 1.2rem;
+  cursor: pointer;
+}

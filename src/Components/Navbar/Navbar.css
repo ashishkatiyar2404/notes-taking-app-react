@@ -1,0 +1,24 @@
+.navbar__container {
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: pink; */
+  border-bottom: 3px solid rgb(160, 151, 151);
+}
+
+.navbar__heading {
+  /* background-color: aquamarine; */
+  margin-left: 2rem;
+  color: rgb(24, 23, 23);
+}
+
+/* .navbar__heading h1 {
+  background-color: burlywood;
+} */
+
+.navbar__credential {
+  background-color: beige;
+  margin-right: 2rem;
+  color: rgb(24, 23, 23);
+}
