@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import hero from "../../Assets/heroImg.png";
 import "./LandingPage.css";
 
@@ -20,7 +21,11 @@ const LandingPage = () => {
           </p>
         </div>
         <div className="landing__btn_container">
-          <button>Join Now</button>
+          <button>
+            <Link className="landing__button" to="/Home">
+              Join Now
+            </Link>
+          </button>
           <p>Already have an account?</p>
         </div>
       </div>
