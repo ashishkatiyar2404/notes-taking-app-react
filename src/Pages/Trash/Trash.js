@@ -1,7 +1,14 @@
 import React from "react";
+import Sidebar from "../../Components/Sidebar/Sidebar";
 
-const trash = () => {
-  return <div>trash</div>;
+const Trash = () => {
+  return (
+    <div>
+      <div className="home__sidebar">
+        <Sidebar />
+      </div>
+    </div>
+  );
 };
 
-export default trash;
+export default Trash;

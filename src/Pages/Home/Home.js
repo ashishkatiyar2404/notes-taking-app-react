@@ -10,7 +10,7 @@ const Home = () => {
         <Sidebar />
       </div>
       <div className="home__home">
-        <Link to="/RichTextEditor">
+        <Link to="/richTextEditor">
           <button className="home__btn">Create New Note</button>
         </Link>
       </div>

@@ -6,6 +6,8 @@ import Home from "./Pages/Home/Home";
 import Label from "./Pages/Label/Label";
 import Archive from "./Pages/Archive/Archive";
 import Trash from "./Pages/Trash/Trash";
+import RichTextEditor from "./Components/RichTextEditor/RichTextEditor";
+
 import "./App.css";
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
           <Route path="/Label" element={<Label />} />
           <Route path="/Archive" element={<Archive />} />
           <Route path="/Trash" element={<Trash />} />
+          <Route path="/richTextEditor" element={<RichTextEditor />} />
         </Routes>
       </Router>
     </div>
