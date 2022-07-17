@@ -20,7 +20,6 @@ function AuthReducer(authState, authAction) {
 
     case "LOGIN_PERSIST":
     case "GUEST_LOGIN":
-      console.log("first");
       return {
         ...authState,
         IsLoggedIn: true,

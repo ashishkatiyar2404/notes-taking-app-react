@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import { IoColorPalette } from "react-icons/io5";
+import { useNote } from "../../Context/NoteContext";
 import Sidebar from "../Sidebar/Sidebar";
 import "./RichTextEditor.css";
 
 const RichTextEditor = () => {
+  const { initialStateNote, addNote, editorText, setEditorText } = useNote();
   const colors = ["#fe9b72", "#fec971", " #00d4fe", "#b693fd", "#e4ee91"];
+
   const [colorPalette, setColorPalette] = useState(false);
   const [BGcolor, setBGcolor] = useState("");
-  function reset() {
-    setBGcolor(() => "");
-    setColorPalette(() => false);
+
+  // function reset() {
+  //   setBGcolor(() => "");
+  // }
+
+  function HandlerSubmit() {
+    console.log("Handler Submit");
+    // console.log(e, editorText, initialStateNote);
+    addNote(editorText);
+    // setEditorText(initialStateNote);
+    // setColorPalette(() => false);
   }
 
   return (
@@ -27,7 +38,13 @@ const RichTextEditor = () => {
               <input
                 placeholder="Title"
                 type="text"
-                onChange={(e) => console.log(e.target.value, "input")}
+                value={editorText.Title}
+                onChange={(e) =>
+                  setEditorText((previousValue) => ({
+                    ...previousValue,
+                    Title: e.target.value,
+                  }))
+                }
               />
             </label>
           </div>
@@ -37,11 +54,15 @@ const RichTextEditor = () => {
               <select
                 name="tags"
                 placeholder="Add Tags"
-                onChange={(e) => console.log(e.target.value, "tags")}
+                value={editorText.Tags}
+                onChange={(e) =>
+                  setEditorText((previousValue) => ({
+                    ...previousValue,
+                    Tags: e.target.value,
+                  }))
+                }
               >
-                <option value="none" selected>
-                  None
-                </option>
+                <option value="None">None</option>
                 <option value="exercise">Exercise</option>
                 <option value="chores">Chores</option>
                 <option value="work">Work</option>
@@ -55,11 +76,15 @@ const RichTextEditor = () => {
               <select
                 name="priority"
                 placeholder="Add Priority"
-                onChange={(e) => console.log(e.target.value, "priority")}
+                value={editorText.Priority}
+                onChange={(e) =>
+                  setEditorText((previousValue) => ({
+                    ...previousValue,
+                    Priority: e.target.value,
+                  }))
+                }
               >
-                <option value="none" selected>
-                  None
-                </option>
+                <option value="None">None</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
@@ -69,9 +94,15 @@ const RichTextEditor = () => {
         </div>
         <div className="textEditor__textarea">
           <textarea
-            onChange={(e) => console.log(e.target.value, "textarea")}
             name="textArea"
+            value={editorText.BodyContent}
             placeholder="Add Text For Your Title"
+            onChange={(e) =>
+              setEditorText((previousValue) => ({
+                ...previousValue,
+                BodyContent: e.target.value,
+              }))
+            }
           ></textarea>
         </div>
         <div className="textEditor__lastPart">
@@ -92,7 +123,7 @@ const RichTextEditor = () => {
               ))}
             </ul>
           </span>
-          <button onClick={reset}>Submit</button>
+          <button onClick={HandlerSubmit}>Submit</button>
         </div>
       </div>
     </>

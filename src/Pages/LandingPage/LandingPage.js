@@ -26,7 +26,9 @@ const LandingPage = () => {
               Join Now
             </Link>
           </button>
-          <p>Already have an account?</p>
+          <p>
+            <Link to="/Login">Already have an account?</Link>
+          </p>
         </div>
       </div>
       <div className="landing__img_container">
