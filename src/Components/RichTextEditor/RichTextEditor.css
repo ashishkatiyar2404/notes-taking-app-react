@@ -1,11 +1,30 @@
+.big__container {
+  display: flex;
+  border: 2px solid pink;
+  height: 90vh;
+}
+
+.sideBar__rich {
+  border: 2px solid green;
+}
+
+.NotesList_Plus_richText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* .Notes__rich {
+  width: 40%;
+} */
+
 .textEditor__outer_div {
   /* margin: auto 0;
   height: 300px; */
-  width: 40%;
+  /* width: 70%; */
   padding: 1rem;
   border: 1px solid black;
   border-radius: 5px;
-  transform: translate(70%, -80%);
+  /* transform: translate(70%, -80%); */
 }
 
 .textEditor__firstPart {

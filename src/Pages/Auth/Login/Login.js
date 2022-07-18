@@ -29,7 +29,7 @@ const Login = () => {
     // }));
     setLoginData({
       email: "katiyar@gmail.com",
-      password: "katiyar@123",
+      password: "Katiyar@123",
     });
     authDispatch({ type: "GUEST_LOGIN" });
     navigate("/Home");

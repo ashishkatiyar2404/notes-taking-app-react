@@ -1,23 +1,28 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { v4 as uuid } from "uuid";
 
 const NoteContext = createContext();
 
 const initialStateNote = {
+  id: uuid(),
   Title: "",
   Tags: "",
   Priority: "",
   BodyContent: "",
-  Color: "white",
+  Color: "",
 };
 
 const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
+  const [notesDelete, setNotesDelete] = useState([]);
+  const [trashNotes, setTrashNotes] = useState([]);
+  const [archiveNotes, setArchiveNotes] = useState([]);
+
   const [editorText, setEditorText] = useState(initialStateNote);
 
   // ADD NOTE
   const addNote = async (note) => {
-    console.log("add Note tk poch gye");
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -25,38 +30,14 @@ const NoteProvider = ({ children }) => {
         { note },
         { headers: { authorization: encodedToken } }
       );
-      console.log("API done");
-      console.log(response);
+
       if (response.status === 201) {
         setNotes(response.data.notes);
-        console.log(response.data.notes);
       }
     } catch (error) {
       console.log("ADD NOTE ERROR", error);
     }
   };
-
-  //   const addNote = async (noteText) => {
-  //     const token = localStorage.getItem("userToken");
-  //     try {
-  //       const response = await axios.post(
-  //         "api/notes",
-  //         {
-  //           note: noteText,
-  //         },
-  //         { headers: { authorization: token } }
-  //       );
-  //       console.log(response);
-  //       if (response.status === 201) {
-  //         const {
-  //           data: { notes },
-  //         } = response;
-  //         setNotes(notes);
-  //       }
-  //     } catch (error) {
-  //       console.log("error", error);
-  //     }
-  //   };
 
   // EDIT NOTE
   const editNote = async (editNote) => {
@@ -78,17 +59,22 @@ const NoteProvider = ({ children }) => {
   // DELETE NOTE
   const deleteNote = async (noteID) => {
     const encodedToken = localStorage.getItem("token");
+    console.log("delete API done before try");
+
     try {
       const response = await axios.post(
         `/api/notes/${noteID}`,
         { note: noteID },
-        { header: { authorization: encodedToken } }
+        { headers: { authorization: encodedToken } }
       );
+      console.log(response.data.notes);
+
       if (response.status === 201) {
-        setNotes(response.data.notes);
+        // setNotes(response.data.notes);
+        setTrashNotes(response.data.notes);
       }
     } catch (error) {
-      console.log("EDIT NOTE ERROR", error);
+      console.log("delete NOTE ERROR", error);
     }
   };
 
@@ -97,12 +83,18 @@ const NoteProvider = ({ children }) => {
       value={{
         initialStateNote,
         addNote,
-        setNotes,
-        editorText,
-        notes,
         editNote,
         deleteNote,
+        notes,
+        setNotes,
+        editorText,
         setEditorText,
+        notesDelete,
+        setNotesDelete,
+        trashNotes,
+        setTrashNotes,
+        archiveNotes,
+        setArchiveNotes,
       }}
     >
       {children}
