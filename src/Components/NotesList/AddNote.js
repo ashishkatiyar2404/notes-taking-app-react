@@ -4,26 +4,45 @@ import { useNote } from "../../Context/NoteContext";
 import "./AddNote.css";
 
 const AddNote = ({ notes }) => {
-  const { deleteNote, setNotes, trashNotes, setTrashNotes } = useNote();
+  const {
+    deleteNote,
+    archiveNote,
+    archiveNotes,
+    trashNotes,
+    setTrashNotes,
+    setArchiveNotes,
+  } = useNote();
 
-  function deleteHandler(perticularNotes, id) {
-    // console.log(perticularNotes, id);
-    deleteNote(perticularNotes.id);
-    setTrashNotes([...trashNotes, perticularNotes]);
-    // setNotes(notes.filter((note) => note.id !== id));
-    function moveToTrash(id) {
-      const tempNotes = [...notes];
-      const index = tempNotes.findIndex((item) => item.id === id);
-      if (index < 0) return;
-      tempNotes.splice(index, 1);
-      setNotes(tempNotes);
-    }
+  // DELETE HANDLER
+  function deleteHandler(perticularNotes) {
+    // console.log(perticularNotes._id, "INSIDE DELETE HANDLER");
 
-    moveToTrash(id);
+    deleteNote(perticularNotes._id); // API call
+
+    setTrashNotes([...trashNotes, perticularNotes]); // ADDING to TRASH
+
+    // DELETING NOTE
+    // setNotes(notes.filter((note) => note._id !== id));
+
+    // function moveToTrash(id) {
+    //   const tempNotes = [...notes];
+    //   const index = tempNotes.findIndex((item) => item.id === id);
+    //   if (index < 0) return;
+    //   tempNotes.splice(index, 1);
+    //   setNotes(tempNotes);
+    // }
+    // moveToTrash(id);
+
+    // ARCHIVE HANDLER
   }
-  // console.log(notes);
+
+  function archiveHandler(perticularNotes) {
+    console.log("archive handler");
+    archiveNote(perticularNotes._id, perticularNotes);
+    setArchiveNotes([...archiveNotes, perticularNotes]);
+  }
   return (
-    <div>
+    <div className="AddNotes__container">
       {notes.map((perticularNotes) => (
         <div
           className="note__container"
@@ -40,7 +59,6 @@ const AddNote = ({ notes }) => {
             </textarea>
           </div>
           <div>
-            {/* <p>date will come here</p> */}
             <p>{perticularNotes.Priority}</p>
           </div>
           <div className="addNote__btn_container">
@@ -48,8 +66,13 @@ const AddNote = ({ notes }) => {
               className="delete__btn"
               onClick={() => deleteHandler(perticularNotes, perticularNotes.id)}
             />
-            <MdArchive className="archive__btn" />
-            <MdEditNote className="editNote__btn" />
+            <MdArchive
+              className="archive__btn"
+              onClick={() =>
+                archiveHandler(perticularNotes, perticularNotes.id)
+              }
+            />
+            <MdEditNote className="editNote__btn" onClick={() => {}} />
             <p>Date will come here</p>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNote } from "../../Context/NoteContext";
 import AddNote from "./AddNote";
+import "./NotesList.css";
 
 const NotesList = () => {
   const { notes } = useNote();

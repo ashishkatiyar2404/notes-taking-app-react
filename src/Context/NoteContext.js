@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 
 const NoteContext = createContext();
 
 const initialStateNote = {
-  id: uuid(),
+  // id: uuid(),
   Title: "",
   Tags: "",
   Priority: "",
@@ -15,7 +15,7 @@ const initialStateNote = {
 
 const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
-  const [notesDelete, setNotesDelete] = useState([]);
+  // const [notesDelete, setNotesDelete] = useState([]);
   const [trashNotes, setTrashNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
 
@@ -23,14 +23,14 @@ const NoteProvider = ({ children }) => {
 
   // ADD NOTE
   const addNote = async (note) => {
+    console.log("add note");
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "/api/notes",
+        `/api/notes`,
         { note },
         { headers: { authorization: encodedToken } }
       );
-
       if (response.status === 201) {
         setNotes(response.data.notes);
       }
@@ -59,22 +59,114 @@ const NoteProvider = ({ children }) => {
   // DELETE NOTE
   const deleteNote = async (noteID) => {
     const encodedToken = localStorage.getItem("token");
-    console.log("delete API done before try");
+    // console.log("delete API done before try");
 
     try {
-      const response = await axios.post(
+      const response = await axios.delete(
         `/api/notes/${noteID}`,
-        { note: noteID },
+        // { note: noteID },
         { headers: { authorization: encodedToken } }
       );
-      console.log(response.data.notes);
 
-      if (response.status === 201) {
-        // setNotes(response.data.notes);
-        setTrashNotes(response.data.notes);
+      if (response.status === 200) {
+        setNotes(response.data.notes);
       }
     } catch (error) {
       console.log("delete NOTE ERROR", error);
+    }
+  };
+
+  // MOVE TO ARCHIVE
+  const archiveNote = async (noteID, noteArchive) => {
+    const encodedToken = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `/api/notes/archives/${noteID}`,
+        { noteArchive },
+        { headers: { authorization: encodedToken } }
+      );
+
+      console.log(response.data.notes);
+      console.log(response.data.archives);
+      // SETTING
+      setNotes(response.data.notes);
+      setArchiveNotes(response.data.archives);
+    } catch (ERROR) {
+      console.log("ARCHIVE ERROR", ERROR);
+    }
+  };
+
+  // ARCHIVE NOTES RESTORE
+  const archiveNoteRestore = async (noteId) => {
+    const encodedToken = localStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `/api/archives/restore/${noteId}`,
+        {},
+        { headers: { authorization: encodedToken } }
+      );
+
+      // SETTING NOTES
+      setNotes(response.data.notes);
+      setArchiveNotes(response.data.archives);
+    } catch (ERROR) {
+      console.error("HUM HAI ARCHIVE RESTORE ERROR", ERROR);
+    }
+  };
+
+  const trashNoteRestore = async (notes, noteId) => {
+    const encodedToken = localStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `/api/trash/restore/${noteId}`,
+        { notes },
+        { headers: { authorization: encodedToken } }
+      );
+      console.log(response.data.notes);
+      console.log(response.data.trash);
+
+      // SETTING NOTES
+      setNotes(response.data.notes);
+      setTrashNotes(response.data.trash);
+    } catch (ERROR) {
+      console.error("HUM HAI TRASH RESTORE ERROR", ERROR);
+    }
+  };
+
+  const trashNoteDelete = async (notes, noteId) => {
+    const encodedToken = localStorage.getItem("token");
+
+    try {
+      const response = await axios.delete(`/api/trash/delete/${noteId}`, {
+        headers: { authorization: encodedToken },
+      });
+      // console.log(response.data.notes);
+      console.log(response.data.trash);
+
+      // SETTING NOTES
+      // setNotes(response.data.notes);
+      setTrashNotes(response.data.trash);
+    } catch (ERROR) {
+      console.error("HUM HAI TRASH RESTORE ERROR", ERROR);
+    }
+  };
+  const archiveNoteDelete = async (notes, noteId) => {
+    const encodedToken = localStorage.getItem("token");
+
+    try {
+      const response = await axios.delete(`/api/archives/delete/${noteId}`, {
+        headers: { authorization: encodedToken },
+      });
+      // console.log(response.data.notes);
+      console.log(response.data.archives);
+
+      // SETTING NOTES
+      // setNotes(response.data.notes);
+      setArchiveNotes(response.data.archives);
+    } catch (ERROR) {
+      console.error("HUM HAI TRASH RESTORE ERROR", ERROR);
     }
   };
 
@@ -82,19 +174,30 @@ const NoteProvider = ({ children }) => {
     <NoteContext.Provider
       value={{
         initialStateNote,
+
         addNote,
         editNote,
         deleteNote,
+        archiveNote,
+
         notes,
         setNotes,
+
         editorText,
         setEditorText,
-        notesDelete,
-        setNotesDelete,
+
+        // notesDelete,
+        // setNotesDelete,
         trashNotes,
         setTrashNotes,
+
         archiveNotes,
         setArchiveNotes,
+
+        archiveNoteRestore,
+        trashNoteRestore,
+        trashNoteDelete,
+        archiveNoteDelete,
       }}
     >
       {children}

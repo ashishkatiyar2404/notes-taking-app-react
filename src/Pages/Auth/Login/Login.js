@@ -23,10 +23,6 @@ const Login = () => {
 
   // HANDLING GUEST DATA
   const handlerGuest = () => {
-    // setLoginData(() => ({
-    //   email: "katiyar@gmail.com",
-    //   password: "katiyar@123",
-    // }));
     setLoginData({
       email: "katiyar@gmail.com",
       password: "Katiyar@123",

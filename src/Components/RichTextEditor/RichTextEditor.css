@@ -1,5 +1,6 @@
 .big__container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 15% 1fr;
   border: 2px solid pink;
   height: 90vh;
 }
@@ -9,22 +10,21 @@
 }
 
 .NotesList_Plus_richText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  overflow: scroll;
+  display: grid;
+  grid-template-columns: 35% 1fr;
 }
-/* .Notes__rich {
-  width: 40%;
-} */
+
+.Notes__rich {
+  width: 80%;
+  margin-left: 1rem;
+}
 
 .textEditor__outer_div {
-  /* margin: auto 0;
-  height: 300px; */
-  /* width: 70%; */
   padding: 1rem;
   border: 1px solid black;
+  height: 38vh;
   border-radius: 5px;
-  /* transform: translate(70%, -80%); */
 }
 
 .textEditor__firstPart {
