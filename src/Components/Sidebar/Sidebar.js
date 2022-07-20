@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import {
-  MdLabelOutline,
+  // MdLabelOutline,
   MdArchive,
   MdOutlineRestoreFromTrash,
 } from "react-icons/md";
@@ -24,11 +24,11 @@ const Sidebar = () => {
               <AiFillHome /> Home
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink style={navLinkStyle} to="/Label">
               <MdLabelOutline /> Label
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink style={navLinkStyle} to="/Archive">
               <MdArchive /> Archive

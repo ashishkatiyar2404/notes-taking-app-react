@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 import { useAuth } from "../../../Context/AuthContext";
-
 import "./Login.css";
 import { LoginHandler } from "./LoginHandler";
 
@@ -25,10 +23,10 @@ const Login = () => {
 
   // HANDLING GUEST DATA
   const handlerGuest = () => {
-    setLoginData(() => ({
-      email: "Notes@gmail.com",
-      password: "Notes@123",
-    }));
+    setLoginData({
+      email: "katiyar@gmail.com",
+      password: "Katiyar@123",
+    });
     authDispatch({ type: "GUEST_LOGIN" });
     navigate("/Home");
   };

@@ -1,0 +1,43 @@
+.trash__page {
+  display: grid;
+  grid-template-columns: 15% 1fr;
+  border: 1px solid black;
+}
+
+.trashNotes__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 1px solid purple;
+  padding: 1rem;
+}
+
+.trashNotes__container div > p {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.trash__perticular_Note {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 40%;
+  margin: 0.2rem;
+  border-radius: 10px;
+}
+
+.common__div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.icons__trash {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.trash__bold {
+  font-weight: bold;
+}

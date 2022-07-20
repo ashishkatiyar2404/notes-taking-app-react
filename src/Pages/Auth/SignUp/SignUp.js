@@ -79,14 +79,6 @@ const SignUp = () => {
           value="Submit"
           onClick={(e) => signUpData(e, signUp, navigate, authDispatch)}
         />
-        {/* <div className="already">
-          <Link to="/Login">Already have account?</Link>
-        </div>
-        <span className="policy">
-          By clicking the Sign Up button you agree to our
-          <Link to="#"> Terms and conditions</Link>
-          <Link to="#"> Policy Privacy</Link>
-        </span> */}
       </form>
     </div>
   );
