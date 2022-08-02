@@ -19,7 +19,6 @@ function AuthReducer(authState, authAction) {
       };
 
     case "LOGIN_PERSIST":
-    case "GUEST_LOGIN":
       return {
         ...authState,
         IsLoggedIn: true,
