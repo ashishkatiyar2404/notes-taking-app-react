@@ -11,8 +11,12 @@ import "./App.css";
 import Login from "./Pages/Auth/Login/Login";
 import SignUp from "./Pages/Auth/SignUp/SignUp";
 import AuthRequire from "./Pages/Auth/AuthRequire";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "Note Taking App";
+  }, []);
   return (
     <div className="app_div">
       <Navbar />
