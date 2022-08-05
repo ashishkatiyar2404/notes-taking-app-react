@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 import "./Login.css";
 import { LoginHandler } from "./LoginHandler";
+import { GuestLoginHandler } from "../SignUp/GuestLoginHandler";
 
 const Login = () => {
   const { authDispatch } = useAuth();
@@ -22,15 +23,24 @@ const Login = () => {
   };
 
   // HANDLING GUEST DATA
-  const handlerGuest = () => {
-    setLoginData({
-      email: "katiyar@gmail.com",
-      password: "Katiyar@123",
-    });
-    authDispatch({ type: "GUEST_LOGIN" });
-    navigate("/Home");
+  // const handlerGuest = () => {
+  //   setLoginData((prev) => ({
+  //     ...prev,
+  //     email: "katiyar@gmail.com",
+  //     password: "Katiyar@123",
+  //   }));
+  //   setLoginData((prev) => ({
+  //     ...prev,
+  //     email: "katiyar@gmail.com",
+  //     password: "Katiyar@123",
+  //   }));
+  //   authDispatch({ type: "GUEST_LOGIN" });
+  //   navigate("/Home");
+  // };
+  const guestLogin = {
+    email: "katiyar@gmail.com",
+    password: "Katiyar@123",
   };
-
   return (
     <div className="center">
       <h1>Login</h1>
@@ -63,7 +73,12 @@ const Login = () => {
             LoginHandler(authDispatch, from, navigate, loginInfo, e)
           }
         />
-        <button className="guestLogin" onClick={handlerGuest}>
+        <button
+          className="guestLogin"
+          onClick={(e) =>
+            GuestLoginHandler(navigate, authDispatch, guestLogin, e)
+          }
+        >
           Guest Login
         </button>
       </form>

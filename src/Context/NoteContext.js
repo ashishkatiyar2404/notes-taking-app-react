@@ -31,6 +31,7 @@ const NoteProvider = ({ children }) => {
         { note },
         { headers: { authorization: encodedToken } }
       );
+      console.log("note added");
       if (response.status === 201) {
         setNotes(response.data.notes);
       }
