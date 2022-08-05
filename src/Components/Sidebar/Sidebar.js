@@ -1,11 +1,7 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
-import {
-  // MdLabelOutline,
-  MdArchive,
-  MdOutlineRestoreFromTrash,
-} from "react-icons/md";
+import { MdArchive, MdOutlineRestoreFromTrash } from "react-icons/md";
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -15,6 +11,7 @@ const Sidebar = () => {
       color: isActive ? "orange" : "",
     };
   };
+
   return (
     <div className="sidebar__container">
       <aside className="sidebar__aside">
@@ -24,11 +21,6 @@ const Sidebar = () => {
               <AiFillHome /> Home
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink style={navLinkStyle} to="/Label">
-              <MdLabelOutline /> Label
-            </NavLink>
-          </li> */}
           <li>
             <NavLink style={navLinkStyle} to="/Archive">
               <MdArchive /> Archive

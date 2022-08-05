@@ -14,8 +14,6 @@ function AuthReducer(authState, authAction) {
       };
 
     case "LOGOUT":
-      // console.log("Hi");
-      // Navigate("/LandingPage");
       return {
         ...initialState,
       };
