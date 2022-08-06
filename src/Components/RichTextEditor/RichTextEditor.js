@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoColorPalette } from "react-icons/io5";
 import { useNote } from "../../Context/NoteContext";
+import Filters from "../Filters/Filters";
 import NotesList from "../NotesList/NotesList";
 import Sidebar from "../Sidebar/Sidebar";
 import "./RichTextEditor.css";
@@ -21,8 +22,13 @@ const RichTextEditor = () => {
 
   return (
     <div className="big__container">
-      <div className="sideBar__rich">
-        <Sidebar />
+      <div className="home__sidebar">
+        <div>
+          <Sidebar />
+        </div>
+        <div className="home__filter">
+          <Filters />
+        </div>
       </div>
       <div className="NotesList_Plus_richText">
         <div

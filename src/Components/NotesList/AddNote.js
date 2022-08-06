@@ -15,25 +15,9 @@ const AddNote = ({ notes }) => {
 
   // DELETE HANDLER
   function deleteHandler(perticularNotes) {
-    // console.log(perticularNotes._id, "INSIDE DELETE HANDLER");
-
     deleteNote(perticularNotes._id); // API call
 
     setTrashNotes([...trashNotes, perticularNotes]); // ADDING to TRASH
-
-    // DELETING NOTE
-    // setNotes(notes.filter((note) => note._id !== id));
-
-    // function moveToTrash(id) {
-    //   const tempNotes = [...notes];
-    //   const index = tempNotes.findIndex((item) => item.id === id);
-    //   if (index < 0) return;
-    //   tempNotes.splice(index, 1);
-    //   setNotes(tempNotes);
-    // }
-    // moveToTrash(id);
-
-    // ARCHIVE HANDLER
   }
 
   function archiveHandler(perticularNotes) {
