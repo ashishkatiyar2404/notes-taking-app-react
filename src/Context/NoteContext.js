@@ -1,9 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
-// import { v4 as uuid } from "uuid";
 
 const NoteContext = createContext();
-
 const initialStateNote = {
   // id: uuid(),
   Title: "",
@@ -11,6 +9,7 @@ const initialStateNote = {
   Priority: "",
   BodyContent: "",
   Color: "",
+  date: "",
 };
 
 const NoteProvider = ({ children }) => {
@@ -23,7 +22,6 @@ const NoteProvider = ({ children }) => {
 
   // ADD NOTE
   const addNote = async (note) => {
-    console.log("add note");
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -31,7 +29,6 @@ const NoteProvider = ({ children }) => {
         { note },
         { headers: { authorization: encodedToken } }
       );
-      console.log("note added");
       if (response.status === 201) {
         setNotes(response.data.notes);
       }
@@ -60,14 +57,11 @@ const NoteProvider = ({ children }) => {
   // DELETE NOTE
   const deleteNote = async (noteID) => {
     const encodedToken = localStorage.getItem("token");
-    // console.log("delete API done before try");
 
     try {
-      const response = await axios.delete(
-        `/api/notes/${noteID}`,
-        // { note: noteID },
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await axios.delete(`/api/notes/${noteID}`, {
+        headers: { authorization: encodedToken },
+      });
 
       if (response.status === 200) {
         setNotes(response.data.notes);
@@ -143,11 +137,8 @@ const NoteProvider = ({ children }) => {
       const response = await axios.delete(`/api/trash/delete/${noteId}`, {
         headers: { authorization: encodedToken },
       });
-      // console.log(response.data.notes);
-      console.log(response.data.trash);
 
       // SETTING NOTES
-      // setNotes(response.data.notes);
       setTrashNotes(response.data.trash);
     } catch (ERROR) {
       console.error("HUM HAI TRASH RESTORE ERROR", ERROR);
@@ -160,11 +151,9 @@ const NoteProvider = ({ children }) => {
       const response = await axios.delete(`/api/archives/delete/${noteId}`, {
         headers: { authorization: encodedToken },
       });
-      // console.log(response.data.notes);
       console.log(response.data.archives);
 
       // SETTING NOTES
-      // setNotes(response.data.notes);
       setArchiveNotes(response.data.archives);
     } catch (ERROR) {
       console.error("HUM HAI TRASH RESTORE ERROR", ERROR);

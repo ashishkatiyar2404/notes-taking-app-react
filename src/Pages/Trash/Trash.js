@@ -34,7 +34,7 @@ const Trash = () => {
               <p className="trash__bold">{item.Priority}</p>
             </div>
             <div className="trash__restoreDelete-btn-container common__div">
-              <p>DATE will come here</p>
+              <p>{item.date}</p>
               <MdRestoreFromTrash
                 className="icons__trash"
                 onClick={() => trashNoteRestore(item, item._id)}

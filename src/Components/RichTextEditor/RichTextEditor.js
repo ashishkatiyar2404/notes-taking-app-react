@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoColorPalette } from "react-icons/io5";
 import { useNote } from "../../Context/NoteContext";
 import Filters from "../Filters/Filters";
@@ -19,6 +19,13 @@ const RichTextEditor = () => {
     setColorPalette(false);
     setBGcolor("");
   }
+
+  const current = new Date();
+  const date = current.toLocaleString();
+  useEffect(() => {
+    setEditorText((prev) => ({ ...prev, date: date }));
+    // eslint-disable-next-line
+  }, [date]);
 
   return (
     <div className="big__container">

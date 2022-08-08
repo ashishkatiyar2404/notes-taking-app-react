@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useNote } from "./NoteContext";
 
 const FilterContext = createContext();
 
 const FilterProvider = ({ children }) => {
   const { notes } = useNote();
+
   const initialFilter = {
     sortByDate: "none",
     sortByTags: [],
@@ -20,26 +21,35 @@ const FilterProvider = ({ children }) => {
   const [filterInitialState, filterDispatch] = useReducer((state, action) => {
     switch (action.type) {
       case "INITIALIZER":
+        console.log("INITIALIZER CLICKED");
         return {
           ...state,
           updatedNotesList: action.payload,
         };
+
       case "CLEAR_ALL":
+        console.log("CLEAR ALL CLICKED");
         return {
           ...action.payload,
-          updatedNotesList: initialFilterState,
+          updatedNotesList: initialFilter,
         };
+
       case "SORT_BY_DATE":
+        console.log("SORT_BY_DATE  CLICKED");
         return {
           ...state,
           sortByDate: action.payload,
         };
+
       case "SORT_BY_PRIORITY":
+        console.log("SORT_BY_PRIORITY CLICKED");
         return {
           ...state,
           sortByPriority: action.payload,
         };
+
       case "SORT_BY_TAGS":
+        console.log("SORT_BY_TAGS  CLICKED");
         return {
           ...state,
           sortByTags: state.sortByTags.includes(action.payload)
@@ -51,13 +61,13 @@ const FilterProvider = ({ children }) => {
     }
   }, initialFilter);
   return (
-    <FilterProvider
+    <FilterContext.Provider
       value={{ filterInitialState, filterDispatch, initialFilter }}
     >
       {children}
-    </FilterProvider>
+    </FilterContext.Provider>
   );
 };
 
-const userFilter = () => useContext(FilterContext);
-export { userFilter, FilterProvider };
+const useFilter = () => useContext(FilterContext);
+export { useFilter, FilterProvider };

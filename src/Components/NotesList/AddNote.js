@@ -3,7 +3,8 @@ import { MdArchive, MdDeleteForever, MdEditNote } from "react-icons/md";
 import { useNote } from "../../Context/NoteContext";
 import "./AddNote.css";
 
-const AddNote = ({ notes }) => {
+const AddNote = ({ filterByDate }) => {
+  console.log(filterByDate);
   const {
     deleteNote,
     archiveNote,
@@ -27,7 +28,7 @@ const AddNote = ({ notes }) => {
   }
   return (
     <div className="AddNotes__container">
-      {notes.map((perticularNotes) => (
+      {filterByDate.map((perticularNotes) => (
         <div
           className="note__container"
           style={{ backgroundColor: perticularNotes.Color }}
@@ -57,7 +58,7 @@ const AddNote = ({ notes }) => {
               }
             />
             <MdEditNote className="editNote__btn" onClick={() => {}} />
-            <p>Date will come here</p>
+            <p>{perticularNotes.date}</p>
           </div>
         </div>
       ))}

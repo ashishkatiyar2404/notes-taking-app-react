@@ -33,7 +33,7 @@ const Archive = () => {
               <p className="archive__bold">{archive.Priority}</p>
             </div>
             <div className="archive__restoreDelete-btn-container common__div">
-              <p>DATE will come here</p>
+              <p>{archive.date}</p>
               <MdRestoreFromTrash
                 className="icons__archive"
                 onClick={() => archiveNoteRestore(archive._id)}

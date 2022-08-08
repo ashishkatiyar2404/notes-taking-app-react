@@ -12,9 +12,10 @@
 }
 
 .navbar__credential {
-  background-color: beige;
+  background-color: purple;
   margin-right: 2rem;
-  color: rgb(24, 23, 23);
+  /* color: rgb(24, 23, 23); */
+  color: white;
 }
 
 .login {

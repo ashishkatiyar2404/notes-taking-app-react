@@ -1,8 +1,13 @@
 import React from "react";
+import { useFilter } from "../../Context/FilterContext";
+import { useNote } from "../../Context/NoteContext";
 import "./Filters.css";
 
 const Filters = () => {
-  let notes = "ashish";
+  const { initialFilter, filterInitialState, filterDispatch } = useFilter();
+
+  const { notes } = useNote();
+
   return (
     <div className="filter__Container">
       {notes && (
@@ -11,12 +16,12 @@ const Filters = () => {
             <h3>Sort By Date</h3>
             <p
               className="clearAll"
-              //   onClick={() =>
-              //     filterDispatch({
-              //       type: "CLEAR_ALL",
-              //       payload: { ...initialFilterState },
-              //     })
-              //   }
+              onClick={() =>
+                filterDispatch({
+                  type: "CLEAR_ALL",
+                  payload: { ...initialFilter },
+                })
+              }
             >
               ClearAll
             </p>
@@ -26,13 +31,13 @@ const Filters = () => {
               <input
                 type="radio"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_DATE",
-                //     payload: "oldToNew",
-                //   })
-                // }
-                // checked={filterState.sortByDate === "oldToNew"}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_DATE",
+                    payload: "oldToNew",
+                  })
+                }
+                checked={filterInitialState.sortByDate === "oldToNew"}
               />
               Sort from old to new
             </label>
@@ -40,13 +45,13 @@ const Filters = () => {
               <input
                 type="radio"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_DATE",
-                //     payload: "newToOld",
-                //   })
-                // }
-                // checked={filterState.sortByDate === "newToOld"}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_DATE",
+                    payload: "newToOld",
+                  })
+                }
+                checked={filterInitialState.sortByDate === "newToOld"}
               />
               Sort from new to old
             </label>
@@ -57,10 +62,10 @@ const Filters = () => {
               <input
                 type="checkbox"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({ type: "SORT_BY_TAGS", payload: "work" })
-                // }
-                // checked={filterState.sortByTags.includes("work")}
+                onChange={() =>
+                  filterDispatch({ type: "SORT_BY_TAGS", payload: "work" })
+                }
+                checked={filterInitialState.sortByTags.includes("work")}
               />
               Work
             </label>
@@ -68,13 +73,13 @@ const Filters = () => {
               <input
                 type="checkbox"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_TAGS",
-                //     payload: "health",
-                //   })
-                // }
-                // checked={filterState.sortByTags.includes("health")}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_TAGS",
+                    payload: "health",
+                  })
+                }
+                checked={filterInitialState.sortByTags.includes("health")}
               />
               Health
             </label>
@@ -82,13 +87,13 @@ const Filters = () => {
               <input
                 type="checkbox"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_TAGS",
-                //     payload: "exercise",
-                //   })
-                // }
-                // checked={filterState.sortByTags.includes("exercise")}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_TAGS",
+                    payload: "exercise",
+                  })
+                }
+                checked={filterInitialState.sortByTags.includes("exercise")}
               />
               Exercise
             </label>
@@ -96,13 +101,13 @@ const Filters = () => {
               <input
                 type="checkbox"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_TAGS",
-                //     payload: "chores",
-                //   })
-                // }
-                // checked={filterState.sortByTags.includes("chores")}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_TAGS",
+                    payload: "chores",
+                  })
+                }
+                checked={filterInitialState.sortByTags.includes("chores")}
               />
               Chores
             </label>
@@ -113,13 +118,13 @@ const Filters = () => {
               <input
                 type="radio"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_PRIORITY",
-                //     payload: "high",
-                //   })
-                // }
-                // checked={filterState.sortByPriority === "high"}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_PRIORITY",
+                    payload: "high",
+                  })
+                }
+                checked={filterInitialState.sortByPriority === "high"}
               />
               High
             </label>
@@ -127,13 +132,13 @@ const Filters = () => {
               <input
                 type="radio"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_PRIORITY",
-                //     payload: "medium",
-                //   })
-                // }
-                // checked={filterState.sortByPriority === "medium"}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_PRIORITY",
+                    payload: "medium",
+                  })
+                }
+                checked={filterInitialState.sortByPriority === "medium"}
               />
               Medium
             </label>
@@ -141,13 +146,13 @@ const Filters = () => {
               <input
                 type="radio"
                 className="filter-margin"
-                // onChange={() =>
-                //   filterDispatch({
-                //     type: "SORT_BY_PRIORITY",
-                //     payload: "low",
-                //   })
-                // }
-                // checked={filterState.sortByPriority === "low"}
+                onChange={() =>
+                  filterDispatch({
+                    type: "SORT_BY_PRIORITY",
+                    payload: "low",
+                  })
+                }
+                checked={filterInitialState.sortByPriority === "low"}
               />
               Low
             </label>
