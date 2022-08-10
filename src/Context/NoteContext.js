@@ -14,11 +14,20 @@ const initialStateNote = {
 
 const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
-  // const [notesDelete, setNotesDelete] = useState([]);
   const [trashNotes, setTrashNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
 
   const [editorText, setEditorText] = useState(initialStateNote);
+
+  // UPDATE THE NOTES
+  const [notesEdit, setNotesEdit] = useState(initialStateNote);
+
+  const onEditNoteContent = (_id) => {
+    console.log("onEditNoteContent");
+    const object = notes.find((note) => note._id === _id);
+    console.log(object);
+    setNotesEdit(object);
+  };
 
   // ADD NOTE
   const addNote = async (note) => {
@@ -37,18 +46,21 @@ const NoteProvider = ({ children }) => {
     }
   };
 
-  // EDIT NOTE
+  // EDIT NOTE OR UPDATE NOTE
   const editNote = async (editNote) => {
     const encodedToken = localStorage.getItem("token");
+    console.log("balle balle");
     try {
       const response = await axios.post(
-        `/api/notes/${editNote.Id}`,
-        { editNote },
-        { header: { authorization: encodedToken } }
+        `/api/notes/${editNote._id}`,
+        { note: editNote },
+        { headers: { authorization: encodedToken } }
       );
-      if (response.status === 201) {
-        setNotes(response.data.notes);
-      }
+      console.log(response.data.notes);
+      setNotes(response.data.notes);
+      setNotesEdit(initialStateNote);
+      // if (response.status === 201) {
+      // }
     } catch (error) {
       console.log("EDIT NOTE ERROR", error);
     }
@@ -172,6 +184,10 @@ const NoteProvider = ({ children }) => {
 
         notes,
         setNotes,
+
+        notesEdit,
+        setNotesEdit,
+        onEditNoteContent,
 
         editorText,
         setEditorText,

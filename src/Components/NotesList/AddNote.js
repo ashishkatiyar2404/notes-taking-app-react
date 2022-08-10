@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdArchive, MdDeleteForever, MdEditNote } from "react-icons/md";
 import { useNote } from "../../Context/NoteContext";
+import EditNotes from "../EditNotes/EditNotes";
 import "./AddNote.css";
 
 const AddNote = ({ filterByDate }) => {
-  console.log(filterByDate);
   const {
     deleteNote,
     archiveNote,
@@ -12,7 +12,17 @@ const AddNote = ({ filterByDate }) => {
     trashNotes,
     setTrashNotes,
     setArchiveNotes,
+    onEditNoteContent,
   } = useNote();
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const editNoteFunction = (perticularNotes) => {
+    console.log("EDITNOTEFUNCTION start", perticularNotes);
+    setOpenModal((open) => !open);
+    onEditNoteContent(perticularNotes._id);
+    console.log("EDITNOTEFUNCTION END");
+  };
 
   // DELETE HANDLER
   function deleteHandler(perticularNotes) {
@@ -57,7 +67,11 @@ const AddNote = ({ filterByDate }) => {
                 archiveHandler(perticularNotes, perticularNotes.id)
               }
             />
-            <MdEditNote className="editNote__btn" onClick={() => {}} />
+            <MdEditNote
+              className="editNote__btn"
+              onClick={() => editNoteFunction(perticularNotes)}
+            />
+            {openModal && <EditNotes setOpenModal={setOpenModal} />}
             <p>{perticularNotes.date}</p>
           </div>
         </div>
