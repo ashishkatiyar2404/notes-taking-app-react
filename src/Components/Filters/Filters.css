@@ -1,0 +1,36 @@
+.filter__Container {
+  border-top: 1px solid black;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.note-filter-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-pd {
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.filter-margin {
+  margin-right: 5px;
+}
+
+.clearAll-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.clearAll {
+  cursor: pointer;
+  text-decoration: underline;
+  padding-right: 2rem;
+}

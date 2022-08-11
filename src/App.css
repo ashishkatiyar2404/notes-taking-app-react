@@ -2,3 +2,15 @@
   height: 90vh;
   background-color: beige;
 }
+
+.siteHeading {
+  text-decoration: none;
+}
+
+.navbar_btn {
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+}

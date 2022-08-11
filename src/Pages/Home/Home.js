@@ -2,12 +2,18 @@ import React from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import Filters from "../../Components/Filters/Filters";
 
 const Home = () => {
   return (
     <div className="home__container">
       <div className="home__sidebar">
-        <Sidebar />
+        <div>
+          <Sidebar />
+        </div>
+        <div className="home__filter">
+          <Filters />
+        </div>
       </div>
       <div className="home__home">
         <Link to="/richTextEditor">

@@ -3,15 +3,20 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import { useNote } from "../../Context/NoteContext";
 import "./Trash.css";
 import { MdRestoreFromTrash, MdDeleteForever } from "react-icons/md";
+import Filters from "../../Components/Filters/Filters";
 
 const Trash = () => {
   const { trashNotes, trashNoteRestore, trashNoteDelete } = useNote();
-  // console.log(trashNotes);
 
   return (
     <div className="trash__page">
       <div className="home__sidebar">
-        <Sidebar />
+        <div>
+          <Sidebar />
+        </div>
+        <div className="home__filter">
+          <Filters />
+        </div>
       </div>
 
       <div className="trashNotes__container">
@@ -29,7 +34,7 @@ const Trash = () => {
               <p className="trash__bold">{item.Priority}</p>
             </div>
             <div className="trash__restoreDelete-btn-container common__div">
-              <p>DATE will come here</p>
+              <p>{item.date}</p>
               <MdRestoreFromTrash
                 className="icons__trash"
                 onClick={() => trashNoteRestore(item, item._id)}

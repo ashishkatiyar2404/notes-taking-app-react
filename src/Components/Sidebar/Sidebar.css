@@ -1,6 +1,7 @@
 .sidebar__container {
   margin: 1rem;
   padding: 1rem;
+  border: 1px solid green;
 }
 
 .sidebar__unordered li {
