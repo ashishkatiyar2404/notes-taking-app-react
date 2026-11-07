@@ -31,7 +31,7 @@ const FilterProvider = ({ children }) => {
         return {
           ...action.payload,
           searchQuery: "",
-          updatedNotesList: initialFilter,
+          updatedNotesList: notes || [],
         };
 
       case "SET_SEARCH_QUERY":
