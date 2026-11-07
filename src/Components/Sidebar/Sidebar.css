@@ -1,11 +1,90 @@
+/* ===== SIDEBAR — Warm Notion Minimalist ===== */
 .sidebar__container {
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar__aside {
+  flex: 1;
+}
+
+.sidebar__section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9B9A97;
+  padding: 0 0.875rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.sidebar__unordered {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar__unordered li {
-  margin: 1rem 0 1rem 0;
+  margin: 0;
   list-style-type: none;
   text-decoration: none;
+}
+
+/* Nav Links */
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.875rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #787774;
+  text-decoration: none;
+  transition: background 0.12s ease, color 0.12s ease;
+  gap: 0.5rem;
+}
+
+.sidebar__link-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sidebar__link-left svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar__link:hover {
+  background: rgba(235, 234, 230, 0.7);
+  color: #37352F;
+}
+
+.sidebar__link.active {
+  background: #37352F;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(55, 53, 47, 0.18);
+}
+
+.sidebar__count-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  color: #787774;
+  min-width: 20px;
+  text-align: center;
+}
+
+.sidebar__link.active .sidebar__count-badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
 }
