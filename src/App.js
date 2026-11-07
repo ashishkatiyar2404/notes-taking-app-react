@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Mockman from "mockman-js";
 import Navbar from "./Components/Navbar/Navbar";
 import LandingPage from "./Pages/LandingPage/LandingPage";
@@ -14,8 +14,9 @@ import { useEffect } from "react";
 
 function App() {
   useEffect(() => {
-    document.title = "Note Taking App";
+    document.title = "WaveNote - Note Taking App";
   }, []);
+
   return (
     <div className="app_div">
       <Navbar />
@@ -57,6 +58,8 @@ function App() {
             </AuthRequire>
           }
         />
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );

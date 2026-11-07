@@ -1,16 +1,6 @@
-.home__sidebar {
-  height: 90vh;
-  background-color: beige;
-}
-
-.siteHeading {
-  text-decoration: none;
-}
-
-.navbar_btn {
-  font-size: 1.2rem;
-  padding: 0.2rem;
-  border-radius: 5px;
-  border: 0;
-  cursor: pointer;
+/* App Root Styles */
+.app_div {
+  min-height: 100vh;
+  background-color: var(--canvas, #FBFBFA);
+  color: var(--text-primary, #37352F);
 }
