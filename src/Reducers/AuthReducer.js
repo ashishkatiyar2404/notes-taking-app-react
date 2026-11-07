@@ -1,22 +1,52 @@
-const initialState = {
-  token: null,
-  IsLoggedIn: false,
+const getSavedUser = () => {
+  try {
+    const raw = localStorage.getItem("user");
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+};
+
+const savedToken = localStorage.getItem("token");
+const savedUser = getSavedUser();
+
+export const initialState = {
+  token: savedToken || null,
+  IsLoggedIn: !!savedToken,
+  ...(savedUser || {}),
 };
 
 function AuthReducer(authState, authAction) {
   switch (authAction.type) {
-    case "LOGIN":
+    case "LOGIN": {
+      const user = authAction.payload.foundUser || {};
+      const token = authAction.payload.encodedToken || localStorage.getItem("token");
+      try {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+      } catch (e) {
+        console.error(e);
+      }
       return {
         ...authState,
-        ...authAction.payload.foundUser,
+        ...user,
         IsLoggedIn: true,
-        token: localStorage.getItem("token"),
+        token,
       };
+    }
 
-    case "LOGOUT":
+    case "LOGOUT": {
+      try {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      } catch (e) {
+        console.error(e);
+      }
       return {
-        ...initialState,
+        token: null,
+        IsLoggedIn: false,
       };
+    }
 
     case "LOGIN_PERSIST":
       return {
@@ -24,17 +54,25 @@ function AuthReducer(authState, authAction) {
         IsLoggedIn: true,
       };
 
-    case "SIGN_UP":
+    case "SIGN_UP": {
+      const user = authAction.payload.createdUser || {};
+      const token = authAction.payload.encodedToken || localStorage.getItem("token");
+      try {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+      } catch (e) {
+        console.error(e);
+      }
       return {
         ...authState,
-        ...authAction.payload.createdUser,
-        token: localStorage.getItem("token"),
+        ...user,
+        IsLoggedIn: true,
+        token,
       };
+    }
 
     default:
-      return {
-        ...authState,
-      };
+      return authState;
   }
 }
 

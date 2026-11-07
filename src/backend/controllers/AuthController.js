@@ -3,6 +3,7 @@ import { Response } from "miragejs";
 import { formatDate } from "../utils/authUtils";
 import { requiresAuth } from "../utils/authUtils";
 const sign = require("jwt-encode");
+const JWT_SECRET = process.env.REACT_APP_JWT_SECRET || "wave_note_taking_app_jwt_secret_2022";
 
 /**
  * All the routes related to Auth are present here.
@@ -42,7 +43,7 @@ export const signupHandler = function (schema, request) {
       trash: [],
     };
     const createdUser = schema.users.create(newUser);
-    const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
+    const encodedToken = sign({ _id, email }, JWT_SECRET);
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
@@ -76,7 +77,7 @@ export const loginHandler = function (schema, request) {
     if (password === foundUser.password) {
       const encodedToken = sign(
         { _id: foundUser._id, email },
-        process.env.REACT_APP_JWT_SECRET
+        JWT_SECRET
       );
       foundUser.password = undefined;
       return new Response(200, {}, { foundUser, encodedToken });
