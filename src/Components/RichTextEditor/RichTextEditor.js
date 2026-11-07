@@ -1,79 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoColorPalette } from "react-icons/io5";
 import { useNote } from "../../Context/NoteContext";
 import Filters from "../Filters/Filters";
 import NotesList from "../NotesList/NotesList";
 import Sidebar from "../Sidebar/Sidebar";
+import { NOTE_COLORS, normalizePastelColor } from "../../utils/colorUtils";
 import "./RichTextEditor.css";
 
 const RichTextEditor = () => {
   const { initialStateNote, addNote, editorText, setEditorText } = useNote();
-  const colors = ["#fe9b72", "#fec971", " #00d4fe", "#b693fd", "#e4ee91"];
 
   const [colorPalette, setColorPalette] = useState(false);
   const [BGcolor, setBGcolor] = useState("");
 
   function HandlerSubmit() {
-    addNote(editorText);
+    if (!editorText.Title?.trim() && !editorText.BodyContent?.trim()) {
+      alert("Please add a title or some note content before saving!");
+      return;
+    }
+    const noteDate = new Date().toLocaleString();
+    addNote({
+      ...editorText,
+      date: noteDate,
+      Color: normalizePastelColor(BGcolor),
+    });
     setEditorText(initialStateNote);
     setColorPalette(false);
     setBGcolor("");
   }
 
-  const current = new Date();
-  const date = current.toLocaleString();
-  useEffect(() => {
-    setEditorText((prev) => ({ ...prev, date: date }));
-    // eslint-disable-next-line
-  }, [date]);
-
   return (
     <div className="big__container">
+      {/* Left sidebar */}
       <div className="home__sidebar">
-        <div>
-          <Sidebar />
-        </div>
-        <div className="home__filter">
-          <Filters />
-        </div>
+        <Sidebar />
+        <Filters />
       </div>
+
+      {/* Main content */}
       <div className="NotesList_Plus_richText">
+        {/* Editor card */}
         <div
           className="textEditor__outer_div"
-          style={{ backgroundColor: BGcolor }}
+          style={{ backgroundColor: normalizePastelColor(BGcolor) }}
         >
+          {/* Top row */}
           <div className="textEditor__firstPart">
             <div className="textEditor__title">
               <label>
-                Title <br />
                 <input
-                  placeholder="Title"
+                  placeholder="Title…"
                   type="text"
                   value={editorText.Title}
                   onChange={(e) =>
-                    setEditorText((previousValue) => ({
-                      ...previousValue,
+                    setEditorText((prev) => ({
+                      ...prev,
                       Title: e.target.value,
                     }))
                   }
                 />
               </label>
             </div>
+
             <div className="textEditor__tags">
-              <label for="tags">
-                Tags:-
+              <label htmlFor="tags">
                 <select
                   name="tags"
-                  placeholder="Add Tags"
+                  id="tags"
                   value={editorText.Tags}
                   onChange={(e) =>
-                    setEditorText((previousValue) => ({
-                      ...previousValue,
+                    setEditorText((prev) => ({
+                      ...prev,
                       Tags: e.target.value,
                     }))
                   }
                 >
-                  <option value="None">None</option>
+                  <option value="None">Tag</option>
                   <option value="Exercise">Exercise</option>
                   <option value="Chores">Chores</option>
                   <option value="Work">Work</option>
@@ -81,21 +83,21 @@ const RichTextEditor = () => {
                 </select>
               </label>
             </div>
+
             <div className="textEditor__priority">
-              <label for="priority">
-                Priority:-
+              <label htmlFor="priority">
                 <select
                   name="priority"
-                  placeholder="Add Priority"
+                  id="priority"
                   value={editorText.Priority}
                   onChange={(e) =>
-                    setEditorText((previousValue) => ({
-                      ...previousValue,
+                    setEditorText((prev) => ({
+                      ...prev,
                       Priority: e.target.value,
                     }))
                   }
                 >
-                  <option value="None">None</option>
+                  <option value="None">Priority</option>
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
                   <option value="High">High</option>
@@ -103,46 +105,67 @@ const RichTextEditor = () => {
               </label>
             </div>
           </div>
+
+          {/* Recessed textarea */}
           <div className="textEditor__textarea">
             <textarea
               name="textArea"
               value={editorText.BodyContent}
-              placeholder="Add Text For Your Title"
+              placeholder="Take a note…"
               onChange={(e) =>
-                setEditorText((previousValue) => ({
-                  ...previousValue,
+                setEditorText((prev) => ({
+                  ...prev,
                   BodyContent: e.target.value,
                 }))
               }
-            ></textarea>
+            />
           </div>
+
+          {/* Bottom toolbar */}
           <div className="textEditor__lastPart">
-            <span>
-              <IoColorPalette onClick={() => setColorPalette(!colorPalette)} />
+            <div className="palette_wrapper">
+              <button
+                type="button"
+                className="palette_btn"
+                title="Change Color"
+                onClick={() => setColorPalette(!colorPalette)}
+              >
+                <IoColorPalette />
+              </button>
+
               <ul
                 className={`colorPalette_list ${
                   colorPalette ? "colorPalette_list_active" : ""
                 }`}
               >
-                {colors.map((item, index) => (
+                {NOTE_COLORS.map((item, index) => (
                   <li
                     key={index}
-                    className="colorPalette_list_item"
-                    style={{ backgroundColor: item }}
+                    className={`colorPalette_list_item ${
+                      BGcolor === item.value ? "selected" : ""
+                    }`}
+                    style={{ backgroundColor: item.value }}
+                    title={item.name}
                     onClick={() => {
-                      setBGcolor(item);
-                      setEditorText((previousValue) => ({
-                        ...previousValue,
-                        Color: item,
+                      setBGcolor(item.value);
+                      setEditorText((prev) => ({
+                        ...prev,
+                        Color: item.value,
                       }));
+                      setColorPalette(false);
                     }}
                   />
                 ))}
               </ul>
-            </span>
-            <button onClick={HandlerSubmit}>Submit</button>
+            </div>
+
+            <button type="button" onClick={HandlerSubmit}>
+              Add Note
+            </button>
           </div>
         </div>
+
+        {/* Notes grid */}
         <div className="Notes__rich">
           <NotesList />
         </div>
