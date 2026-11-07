@@ -10,6 +10,7 @@ const FilterProvider = ({ children }) => {
     sortByDate: "none",
     sortByTags: [],
     sortByPriority: "none",
+    searchQuery: "",
     updatedNotesList: notes,
   };
 
@@ -21,35 +22,37 @@ const FilterProvider = ({ children }) => {
   const [filterInitialState, filterDispatch] = useReducer((state, action) => {
     switch (action.type) {
       case "INITIALIZER":
-        console.log("INITIALIZER CLICKED");
         return {
           ...state,
           updatedNotesList: action.payload,
         };
 
       case "CLEAR_ALL":
-        console.log("CLEAR ALL CLICKED");
         return {
           ...action.payload,
+          searchQuery: "",
           updatedNotesList: initialFilter,
         };
 
+      case "SET_SEARCH_QUERY":
+        return {
+          ...state,
+          searchQuery: action.payload,
+        };
+
       case "SORT_BY_DATE":
-        console.log("SORT_BY_DATE  CLICKED");
         return {
           ...state,
           sortByDate: action.payload,
         };
 
       case "SORT_BY_PRIORITY":
-        console.log("SORT_BY_PRIORITY CLICKED");
         return {
           ...state,
           sortByPriority: action.payload,
         };
 
       case "SORT_BY_TAGS":
-        console.log("SORT_BY_TAGS  CLICKED");
         return {
           ...state,
           sortByTags: state.sortByTags.includes(action.payload)

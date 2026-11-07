@@ -4,64 +4,67 @@ import { useNote } from "../../Context/NoteContext";
 const FilterHook = () => {
   const { filterInitialState } = useFilter();
   const { notes } = useNote();
-  const newFilterNotes = [...notes];
+  const newFilterNotes = notes ? [...notes] : [];
 
-  const { sortByDate, sortByTags, sortByPriority } = filterInitialState;
+  const {
+    sortByDate,
+    sortByTags = [],
+    sortByPriority,
+    searchQuery = "",
+  } = filterInitialState;
+
+  const getFilteredBySearch = (notesArr, query) => {
+    if (!query || query.trim() === "") return notesArr;
+    const lowerQ = query.toLowerCase().trim();
+    return notesArr.filter(
+      (note) =>
+        note.Title?.toLowerCase().includes(lowerQ) ||
+        note.BodyContent?.toLowerCase().includes(lowerQ) ||
+        note.Tags?.toLowerCase().includes(lowerQ)
+    );
+  };
 
   const getFilterByTags = (notesArr, tags) => {
-    console.log("get Filter by tags");
-    if (tags.length > 0) {
-      console.log("get Filter by tags if k andr");
-      return notesArr.filter((note) => tags.includes(note.Tags));
-    } else {
-      console.log("get Filter by tags else k andr");
-      return notesArr;
+    if (tags && tags.length > 0) {
+      return notesArr.filter((note) =>
+        note.Tags ? tags.includes(note.Tags.toLowerCase()) : false
+      );
     }
+    return notesArr;
   };
 
   const getFilterByPriority = (notesArr, selectedPriority) => {
-    console.log("filter by priority");
-    return selectedPriority !== "" && selectedPriority !== "none"
+    return selectedPriority && selectedPriority !== "none"
       ? notesArr.filter(
-          (note) => note.Priority.toLowerCase() === selectedPriority
+          (note) =>
+            note.Priority?.toLowerCase() === selectedPriority.toLowerCase()
         )
       : notesArr;
   };
 
   const getFilterByDate = (notesArr, date) => {
-    console.log("get Filter by data");
     if (date === "oldToNew") {
-      console.log("get Filter by data if k andr");
-      let sortedNotes = [...notesArr].sort((a, b) => {
-        let firstDate = new Date(a.date);
-        let lastDate = new Date(b.date);
-        return firstDate.getTime() - lastDate.getTime();
+      return [...notesArr].sort((a, b) => {
+        const firstDate = new Date(a.date).getTime() || 0;
+        const lastDate = new Date(b.date).getTime() || 0;
+        return firstDate - lastDate;
       });
-      return sortedNotes;
     } else if (date === "newToOld") {
-      console.log("get Filter by data else if k andr");
-      let sortedNotes = [...notesArr].sort((a, b) => {
-        let firstDate = new Date(a.date);
-        let lastDate = new Date(b.date);
-        return lastDate.getTime() - firstDate.getTime();
+      return [...notesArr].sort((a, b) => {
+        const firstDate = new Date(a.date).getTime() || 0;
+        const lastDate = new Date(b.date).getTime() || 0;
+        return lastDate - firstDate;
       });
-      return sortedNotes;
-    } else {
-      console.log("get Filter by data else  k andr");
-      return notesArr;
     }
+    return notesArr;
   };
 
-  const filterByTags = getFilterByTags(newFilterNotes, sortByTags);
+  const searchedNotes = getFilteredBySearch(newFilterNotes, searchQuery);
+  const filterByTags = getFilterByTags(searchedNotes, sortByTags);
   const filterByPriority = getFilterByPriority(filterByTags, sortByPriority);
   const filterByDate = getFilterByDate(filterByPriority, sortByDate);
 
-  if (filterByDate === undefined || filterByDate.length === 0) {
-    return notes;
-  }
-
-  // console.log(filterByDate);
-  return filterByDate;
+  return filterByDate || [];
 };
 
 export { FilterHook };

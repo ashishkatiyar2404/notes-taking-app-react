@@ -1,36 +1,105 @@
+/* ===== FILTERS — Pill Button Style ===== */
 .filter__Container {
-  border-top: 1px solid black;
-  margin: 1rem;
-  padding: 0.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid #E9E9E7;
 }
 
 .note-filter-sidebar {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
-.filter {
-  padding: 1rem 0;
+/* Section Headers */
+.filter__section-header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
-.filter-pd {
-  padding-bottom: 5px;
-  cursor: pointer;
-}
-
-.filter-margin {
-  margin-right: 5px;
+.filter__section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9B9A97;
 }
 
 .clearAll-flex {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
 }
 
 .clearAll {
   cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #787774;
   text-decoration: underline;
-  padding-right: 2rem;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.12s;
+}
+
+.clearAll:hover {
+  color: #37352F;
+}
+
+/* Pill Buttons Group */
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Each pill replaces radio/checkbox label */
+.filter-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #E9E9E7;
+  background: #fff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #37352F;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  user-select: none;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.filter-pill:hover {
+  background: rgba(235, 234, 230, 0.5);
+  border-color: #D3D1CB;
+}
+
+.filter-pill.active {
+  background: #37352F;
+  border-color: #37352F;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(55, 53, 47, 0.18);
+}
+
+/* Hide native inputs */
+.filter-margin {
+  display: none;
+}
+.filter-pd {
+  display: none;
+}
+
+/* Section group spacing */
+.filter__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
