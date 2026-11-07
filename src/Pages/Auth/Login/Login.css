@@ -1,85 +1,99 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
+/* ===== LOGIN / AUTH — Warm Notion ===== */
 :root {
-  --white-color: rgb(255, 255, 255);
-  --white-color-shade: rgb(233, 244, 251);
-  --silver-color: rgb(192, 192, 192);
-  --adadad-color: rgb(173, 173, 173);
-  --btn-auth-color: #248d55;
-  --forgot-already-color: rgb(166, 166, 166);
-  --gray-color-shade: rgb(102, 102, 102);
+  --primary-color: #37352F;
+  --primary-hover: #2F2D28;
+  --border-color: #E9E9E7;
+  --muted-color: #9B9A97;
+  --secondary-text: #787774;
 }
 
 .center {
-  height: 65vh;
-  overflow: hidden;
-  font-size: 1.6rem;
-  scroll-behavior: smooth;
-  position: relative;
-  width: 30rem;
-  border-radius: 1rem;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: rgba(0, 0, 0, 0.35) 0rem 0.5rem 1.5rem;
-  background: var(--white-color);
+  width: min(400px, 92vw);
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 60px rgba(55, 53, 47, 0.1);
+  overflow: hidden;
+  font-family: "Inter", inherit;
 }
 
+/* Header strip */
 .center h1 {
-  padding-bottom: 1rem;
-  border-bottom: 0.1rem solid var(--silver-color);
+  padding: 1.5rem 2rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
   text-align: center;
-  font-size: 2.4rem;
-  color: #473e07;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.02em;
+  background: #FBFBFA;
 }
 
 .center form {
-  padding: 0rem 2rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* Floating label text fields */
 form .text__field {
   position: relative;
-  border-bottom: 2px solid var(--adadad-color);
-  margin: 1.6rem 0;
+  border-bottom: 2px solid var(--border-color);
+  transition: border-color 0.2s;
+}
+
+form .text__field:focus-within {
+  border-bottom-color: var(--primary-color);
 }
 
 .text__field input {
   width: 100%;
-  padding: 0rem 0.5rem;
-  height: 3.2rem;
-  font-size: 1rem;
+  padding: 0.5rem 0.5rem;
+  height: 3rem;
+  font-size: 0.95rem;
   border: none;
   background: none;
   outline: none;
+  color: var(--primary-color);
+  font-family: inherit;
 }
 
 .text__field label {
   position: absolute;
   top: 50%;
   left: 0.5rem;
-  color: var(--adadad-color);
+  color: var(--muted-color);
   transform: translateY(-50%);
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   pointer-events: none;
-  transition: 0.5s;
+  transition: 0.3s ease;
 }
 
 .text__field span::before {
   content: "";
   position: absolute;
-  top: 3.2rem;
+  top: 100%;
   left: 0;
   width: 0%;
-  height: 0.2rem;
-  background: var(--btn-auth-color);
-  transition: 0.5s;
+  height: 2px;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
 }
 
 .text__field input:focus ~ label,
 .text__field input:valid ~ label {
-  top: -0.5rem;
-  color: var(--btn-auth-color);
+  top: -0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: 0.03em;
 }
 
 .text__field input:focus ~ span::before,
@@ -87,56 +101,77 @@ form .text__field {
   width: 100%;
 }
 
+/* Forgot password */
 .pass {
-  margin: -0.5rem 0rem 2rem 0.5rem;
-  color: var(--forgot-already-color);
-  font-size: 1.2rem;
+  margin: -0.5rem 0 0.25rem 0.25rem;
+  color: var(--secondary-text);
+  font-size: 0.8rem;
   cursor: pointer;
+  width: fit-content;
 }
 
 .pass:hover {
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
+/* Buttons */
 input[type="submit"],
 .guestLogin {
-  width: 50%;
-  height: 3rem;
-  border: 1px solid;
-  background: linear-gradient(
-    45deg,
-    var(--linear-gradient-1) 50%,
-    var(--linear-gradient-2) 50%
-  );
-  border-radius: 1.8rem;
-  font-size: 1.2rem;
-  color: var(--white-color-shade);
-  font-weight: 700;
+  width: 100%;
+  height: 2.75rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
   outline: none;
-  color: #473e07;
-  border: 0;
+  font-family: inherit;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
-input[type="submit"]:hover,
+input[type="submit"] {
+  background: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(55, 53, 47, 0.2);
+}
+
+input[type="submit"]:hover {
+  background: var(--primary-hover);
+}
+
+input[type="submit"]:active {
+  transform: scale(0.99);
+}
+
+.guestLogin {
+  background: #F7F7F5;
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
+}
+
 .guestLogin:hover {
-  border-color: var(--btn-auth-color);
-  transition: 0.5s;
+  background: #EBEAE6;
 }
 
+/* Sign up link */
 .signup__link {
-  margin: 2rem 0;
+  padding: 1rem 2rem 1.5rem;
   text-align: center;
-  font-size: 1.2rem;
-  color: var(--gray-color-shade);
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  border-top: 1px solid var(--border-color);
+  background: #FBFBFA;
 }
 
 .signup__link a {
-  color: #473e07;
-  text-decoration: none;
-  font-size: 1.5rem;
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 600;
+  text-underline-offset: 2px;
+  font-size: 0.85rem;
 }
 
 .signup__link a:hover {
-  text-decoration: underline;
+  color: var(--primary-hover);
 }

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
+import { useNote } from "../../../Context/NoteContext";
 import axios from "axios";
+import "../Login/Login.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { authDispatch } = useAuth();
+  const { authState, authDispatch } = useAuth();
+  const { fetchAllData } = useNote();
 
   const [signUp, setSignUp] = useState({
     name: "",
@@ -14,72 +17,91 @@ const SignUp = () => {
     password: "",
   });
 
+  // If already logged in, redirect away
+  if (authState.IsLoggedIn) {
+    return <Navigate to="/Home" replace />;
+  }
+
   const signUpHandler = (e) => {
     setSignUp((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
   };
 
-  const signUpData = (e, signUp, navigate, AuthDispatch) => {
+  const signUpData = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("/api/auth/signup", {
+        ...signUp,
+      });
 
-    (async () => {
-      try {
-        const response = await axios.post("/api/auth/signup", {
-          ...signUp,
-        });
-
-        if (response.status === 201) {
-          localStorage.setItem("token", response.data.encodedToken);
-          AuthDispatch({ type: "SIGN_UP", payload: response.data });
-          navigate("/Login");
+      if (response.status === 201) {
+        localStorage.setItem("token", response.data.encodedToken);
+        authDispatch({ type: "SIGN_UP", payload: response.data });
+        if (fetchAllData) {
+          fetchAllData();
         }
-      } catch (error) {
-        console.error("Kyu ASHISH nahi ho rha ky", error);
+        navigate("/Home", { replace: true });
       }
-    })();
+    } catch (error) {
+      console.error("SignUp Error:", error);
+      alert("Sign up failed. Please check your details and try again.");
+    }
   };
 
   return (
     <div className="center">
-      <h1>Signup</h1>
-      <form action="">
+      <h1>Sign Up</h1>
+      <form onSubmit={signUpData}>
         <div className="text__field">
-          <input type="email" name="email" onChange={signUpHandler} required />
+          <input
+            type="email"
+            name="email"
+            value={signUp.email}
+            onChange={signUpHandler}
+            required
+          />
           <span></span>
-          <label>Email</label>
+          <label>Email Address</label>
         </div>
         <div className="text__field first__name">
-          <input type="text" name="name" onChange={signUpHandler} required />
+          <input
+            type="text"
+            name="name"
+            value={signUp.name}
+            onChange={signUpHandler}
+            required
+          />
           <span></span>
-          <label>first name</label>
+          <label>First Name</label>
         </div>
         <div className="text__field last__name">
           <input
             type="text"
             name="lastName"
+            value={signUp.lastName}
             onChange={signUpHandler}
             required
           />
           <span></span>
-          <label>What about your last name</label>
+          <label>Last Name</label>
         </div>
 
         <div className="text__field">
           <input
             type="password"
             name="password"
+            value={signUp.password}
             onChange={signUpHandler}
             required
           />
           <span></span>
-          <label> Confirm Password</label>
+          <label>Password</label>
         </div>
 
-        <input
-          type="submit"
-          value="Submit"
-          onClick={(e) => signUpData(e, signUp, navigate, authDispatch)}
-        />
+        <input type="submit" value="Create Account" />
       </form>
+      <div className="signup__link">
+        Already a member? <Link to="/Login">Log In</Link>
+      </div>
     </div>
   );
 };

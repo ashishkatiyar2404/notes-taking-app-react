@@ -1,26 +1,24 @@
-// LOGIN HANDLER
 import axios from "axios";
 
-const LoginHandler = (authDispatch, from, navigate, loginInfo, e) => {
-  console.log(loginInfo);
-  e.preventDefault();
-  (async () => {
-    try {
-      const response = await axios.post("/api/auth/login", {
-        ...loginInfo,
-      });
+const LoginHandler = async (authDispatch, from, navigate, loginInfo, e, fetchAllData) => {
+  if (e) e.preventDefault();
+  try {
+    const response = await axios.post("/api/auth/login", {
+      ...loginInfo,
+    });
 
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.encodedToken);
-        authDispatch({ type: "LOGIN", payload: response.data });
-
-        // navigate(from, { replace: true });
-        // THE ABOVE LINE IS NOTE WORKING CHECK LATER WHY
-        navigate("/Home");
+    if (response.status === 200) {
+      localStorage.setItem("token", response.data.encodedToken);
+      authDispatch({ type: "LOGIN", payload: response.data });
+      if (fetchAllData) {
+        fetchAllData();
       }
-    } catch (error) {
-      console.log("Error Wala Masla Hogya Ji", error);
+      navigate(from || "/Home", { replace: true });
     }
-  })();
+  } catch (error) {
+    console.error("Login Error:", error);
+    alert("Login failed. Please check your credentials and try again.");
+  }
 };
+
 export { LoginHandler };
