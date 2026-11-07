@@ -179,7 +179,7 @@ export const trashNoteHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {
-      new Response(
+      return new Response(
         404,
         {},
         {
