@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
@@ -11,17 +11,19 @@ import { FilterProvider } from "./Context/FilterContext";
 // Call make Server
 makeServer();
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <Router>
-      <NoteProvider>
-        <FilterProvider>
-          <AuthProvider>
+      <AuthProvider>
+        <NoteProvider>
+          <FilterProvider>
             <App />
-          </AuthProvider>
-        </FilterProvider>
-      </NoteProvider>
+          </FilterProvider>
+        </NoteProvider>
+      </AuthProvider>
     </Router>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

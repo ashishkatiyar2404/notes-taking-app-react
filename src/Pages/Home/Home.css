@@ -1,24 +1,5 @@
+/* Home container clean styles */
 .home__container {
-  display: grid;
-  grid-template-columns: 15% 1fr;
-}
-
-.home__home {
-  margin: auto 30%;
-}
-
-.home__btn {
-  margin: 1rem;
-  padding: 1rem 2rem;
-  color: white;
-  background-color: blueviolet;
-  font-size: 1.4rem;
-  border: 0;
-  outline: none;
-  border-radius: 1rem;
-  cursor: pointer;
-}
-
-.home__sidebar {
-  border: 1px solid green;
+  min-height: calc(100vh - 64px);
+  background-color: var(--canvas, #FBFBFA);
 }
